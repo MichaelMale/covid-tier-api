@@ -1,15 +1,31 @@
 import requests
 
 class CovidTier:
-    def __init__(self, postcode, tier):
+    def __init__(self, postcode, tier=-1):
+        '''Constructor for objects of type CovidTier.
+
+        Keyword arguments:
+        postcode -- A postcode located in England (default null)
+        tier -- The tier that said postcode is in (default -1)
+        '''
         self.postcode = postcode
         self.tier = tier
     
     def __str__(self):
+        '''Displays postcode and tier info.
+
+        Keyword arguments:
+        self -- Object of type CovidTier to be displayed (default null)
+        '''
         return 'Postcode: ' + self.postcode + '\nTier: ' + str(self.tier)
 
 def find_tier(postcode):
-    res = CovidTier(postcode, -1)
+    '''Find which tier a postcode is in.
+
+    Keyword arguments:
+    postcode -- A postcode located in England (default null)
+    '''
+    res = CovidTier(postcode)
     URL = "https://www.gov.uk/find-coronavirus-local-restrictions?postcode=" + postcode
 
     req = requests.get(URL)
@@ -28,6 +44,10 @@ def find_tier(postcode):
 
     return res
 
-tier = find_tier('sy231lu')
+print('COVID-19 Tier Finder for postcodes in England')
+print('\nMichael Male - michaelmale31@gmail.com')
+postcode = input('Please enter a postcode:\n')
+
+tier = find_tier(postcode)
 
 print(tier)
